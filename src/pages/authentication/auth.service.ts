@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of, timer, Subscription } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { envrioment } from '../enviroment/enviroment';
+import { environment } from '../enviroment/enviroment';
 
 
 @Injectable({
@@ -11,7 +11,7 @@ import { envrioment } from '../enviroment/enviroment';
 })
 export class AuthService {
 
-  private tokenUrl=envrioment.authUrl; 
+  private tokenUrl=environment.AUTH_URL; 
   private readonly TOKEN_KEY = 'authToken';
 
   private tokenRefreshSubscription: Subscription | null = null;
