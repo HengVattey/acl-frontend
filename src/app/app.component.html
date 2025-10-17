@@ -1,0 +1,66 @@
+<!-- 
+<div class="layout" [class.resizing]="resizing">
+  <aside class="sidebar" [style.width.px]="sidebarWidth">
+    <div class="brand">Your Logo</div>
+
+    <nav class="menu">
+      <a routerLink="/dashboard">Dashboard</a>
+      <a routerLink="/reports">Reports</a>
+      <a routerLink="/settings">Settings</a>
+    </nav>
+
+
+    <div class="resize-handle" (mousedown)="startResize($event)"></div>
+  </aside>
+
+  <main class="content">
+    
+    <router-outlet></router-outlet>
+  </main>
+</div> -->
+
+
+
+
+<div class="layout" [class.resizing]="resizing">
+  <aside class="sidebar" [style.width.px]="sidebarWidth" [class.collapsed]="collapsed">
+    <div class="brand">
+      <button class="toggle-btn" (click)="toggleSidebar()">
+  
+        <!-- <i class="pi" [ngClass]="collapsed ? 'pi-angle-right' : 'pi-angle-left'"></i> -->
+        <i class="pi" [ngClass]="collapsed ? 'pi-bars' : 'pi-bars'"></i>
+      </button>
+      <span *ngIf="!collapsed">Your Logo</span>
+    </div>
+
+    <nav class="menu">
+      <a routerLink="fee" routerLinkActive="acive" >
+        <i class="pi pi-home"></i>
+        <span *ngIf="!collapsed">Fee Creation </span>
+      </a>
+      <a routerLink="/reports">
+        <i class="pi pi-chart-line"></i>
+        <span *ngIf="!collapsed">Reports</span>
+      </a>
+      <a routerLink="/settings">
+        <i class="pi pi-cog"></i>
+        <span *ngIf="!collapsed">Settings</span>
+      </a>
+
+        <a routerLink="login" routerLinkActive="avtive">
+        <i class="pi pi-cog"></i>
+        <span *ngIf="!collapsed">login</span>
+      </a>
+
+
+
+    </nav>
+
+    <div class="resize-handle" (mousedown)="startResize($event)"></div>
+  </aside>
+
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
+

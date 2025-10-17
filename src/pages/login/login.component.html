@@ -1,0 +1,23 @@
+
+<div class="container mt-3 cus login-container">
+  <div class="card login-card">
+    <div class="card-body">
+      <form (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" id="username" class="form-control" [(ngModel)]="username" name="username" required 
+  autocomplete="current-password" />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" id="password" class="form-control" [(ngModel)]="password" name="password" required autocomplete="current-password"/>
+        </div>
+        <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+        <button type="submit" class="btn btn-primary w-100" [disabled]="isLoading">
+          <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
+          {{ isLoading ? 'Logging in...' : 'Login' }}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>   
