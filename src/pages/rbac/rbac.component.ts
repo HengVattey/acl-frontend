@@ -2,11 +2,13 @@ import { Component } from '@angular/core';
 import { RbacService } from './rbac.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { TabsModule } from 'primeng/tabs';
+import { BadgeModule } from 'primeng/badge';
+import { AvatarModule } from 'primeng/avatar';
 
 @Component({
   selector: 'app-rbac',
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,FormsModule, TabsModule, BadgeModule, AvatarModule],
   templateUrl: './rbac.component.html',
   styleUrl: './rbac.component.css'
 })
@@ -20,40 +22,15 @@ export class RBACComponent {
   };
 
 
-
-  
-
-creatUser() {
-
-
-}
-
   constructor(private rbacService: RbacService) {
   console.log("RBAC Component Loaded");
+  
+  this.rbacService.getRoles().subscribe(data=>{
+  console.log(" Theses are roles : ", data);
+  });
   this.rbacService.getUsers().subscribe(data=>{
-  console.log(data);
+  console.log(" Theses are users : ", data);
 });
-
-
-
-
-
-//  this.rbacService.getRoles().subscribe({
-//   next: (data) => {
-//     console.log('Roles:', data);
-//   },
-//   error: (err) => {
-//     if (err.status === 403) {
-//       console.error('Access denied: You do not have permission.');
-//       alert('You are not allowed to access this resource.');
-//     } else if (err.status === 401) {
-//       console.error('Unauthorized: Please login again.');
-      
-//     } else {
-//       console.error('Other error:', err);
-//     }
-//   }
-// });
 
 
 
@@ -62,11 +39,11 @@ creatUser() {
  onSubmit() {
     this.rbacService.createUser(this.user).subscribe({
       next: (res) => {
-        console.log('✅ Success:', res);
+        console.log(' Success:', res);
         alert('User created successfully!');
       },
       error: (err) => {
-        console.error('❌ Error:', err);
+        console.error(' Error:', err);
         if (err.status === 403) alert('Access denied');
         else if (err.status === 401) alert('Unauthorized');
         else alert('Something went wrong');

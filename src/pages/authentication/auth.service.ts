@@ -5,7 +5,6 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { environment } from '../enviroment/enviroment';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -13,9 +12,7 @@ export class AuthService {
 
   private tokenUrl=environment.AUTH_URL; 
   private readonly TOKEN_KEY = 'authToken';
-
   private tokenRefreshSubscription: Subscription | null = null;
-
   constructor(private http: HttpClient, private router: Router) {
     this.initializeAuthState();
   }
@@ -48,13 +45,10 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-   
     return !!sessionStorage.getItem(this.TOKEN_KEY);
-
   }
 
   getToken(): string | null {
- 
     return sessionStorage.getItem(this.TOKEN_KEY);
   }
 
@@ -65,11 +59,10 @@ export class AuthService {
 
   private storeToken(token: string): void {
     sessionStorage.setItem(this.TOKEN_KEY,token);
-
   }
 
   private startTokenRefresh(): void {
-    const refreshInterval = 25 * 1000;
+    const refreshInterval = 250 * 1000;
     this.stopTokenRefresh();
     this.tokenRefreshSubscription = timer(refreshInterval, refreshInterval)
       .pipe(
@@ -100,6 +93,8 @@ export class AuthService {
   //     })
   //   );
   // }
+
+
   private refreshToken(): Observable<any> {
   const headers = { Authorization: this.getAuthHeader()! };
   return this.http.post<any>('http://localhost:8080/auth/refresh', {}, { headers }).pipe(

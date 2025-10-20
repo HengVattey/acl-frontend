@@ -9,11 +9,12 @@ import { UserActivityService } from '../pages/authentication/user-activity.servi
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent implements OnInit {
   constructor(private auto: UserActivityService) {}
 
   ngOnInit(): void {
-    this.auto.initListener();
+   // this.auto.initListener();
   }
 
   sidebarWidth = Number(localStorage.getItem('sidebarWidth') ?? 260);
