@@ -15,10 +15,15 @@ import { AvatarModule } from 'primeng/avatar';
 export class RBACComponent {
 
 
-   user = {
+  user = {
     username: '',
     password: '',
     email: ''
+  };
+
+  role = {
+    name: '',
+    description: ''
   };
 
 
@@ -30,11 +35,32 @@ export class RBACComponent {
   });
   this.rbacService.getUsers().subscribe(data=>{
   console.log(" Theses are users : ", data);
-});
+  });
+
+  
 
 
 
 }
+
+assignRole(){
+this.rbacService.assignRole(this.role).subscribe({
+next: (res) => {
+        console.log(' Success:', res);
+        alert('successfully!');
+      },
+      error: (err) => {
+        console.error(' Error:', err);
+        if (err.status === 403) alert('Access denied');
+        else if (err.status === 401) alert('Unauthorized');
+        else alert('Something went wrong');
+      }
+
+
+});
+
+}
+
 
  onSubmit() {
     this.rbacService.createUser(this.user).subscribe({

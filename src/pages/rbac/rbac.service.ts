@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class RbacService  {
   viewUserUrl: string = environment.USER_URL;
+  roleUrl:string = environment.ROLE_URL;
 
 
   constructor(private http: HttpClient) {
@@ -24,6 +25,12 @@ export class RbacService  {
   createUser(userData: any): Observable<any> {
     return this.http.post(this.viewUserUrl, userData);
   }
+  
+  assignRole(roleData: any):Observable<any>{
+  return this.http.post(this.roleUrl,roleData);
+  }
+
+
 
   
   

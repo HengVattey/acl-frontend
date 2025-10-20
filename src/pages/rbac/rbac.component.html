@@ -8,9 +8,15 @@
   <button class="btn btn-info" type="submit">Create User</button>
 </form>
 
+<form class="form-control w-25" (ngSubmit)="assignRole()">
+  <input class="form-control" type="text" placeholder="Username" [(ngModel)]="role.name" name="rolename" required>
+  <br>
+  <input class="form-control"  type="password" placeholder="Password" [(ngModel)]="role.description" name="description" required>
+  <br>
+  <button class="btn btn-info" type="submit">Assign Role</button>
+</form>
 
 <!-- View Users  -->
-
 <div class="card">
     <p-tabs value="0" scrollable>
         <p-tablist>
