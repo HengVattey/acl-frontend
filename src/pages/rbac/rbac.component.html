@@ -1,23 +1,57 @@
-<form class="form-control" (ngSubmit)="onSubmit()">
+
+
+
+
+
+<!-- <div class="card">
+    <p-editor [(ngModel)]="text" [style]="{ height: '320px' }" />
+</div> -->
+
+
+
+<div class="container d-flex justify-content-center gap-4">
+<form class="form-control w-50" (ngSubmit)="onSubmit()">
   <input class="form-control" type="text" placeholder="Username" [(ngModel)]="user.username" name="username" required>
   <br>
-  <input class="form-control"  type="password" placeholder="Password" [(ngModel)]="user.password" name="password" required>
+  <input class="form-control" type="password" placeholder="Password" [(ngModel)]="user.password" name="password" required>
   <br>
   <input class="form-control" type="email" placeholder="Email" [(ngModel)]="user.email" name="email" required>
   <br>
+  <br>
+
+
+  <!-- <div class="card flex justify-center">
+    <p-select [options]="groupedCities" [(ngModel)]="selectedCity" placeholder="Select a City" [group]="true" class="w-full md:w-56">
+            <ng-template let-group #group>
+                <div class="flex items-center">
+                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value"  style="width: 20px" />
+                    <span>{{ group.label }}</span>
+                </div>
+            </ng-template>
+    </p-select>
+</div> -->
+
+
+
   <button class="btn btn-info" type="submit">Create User</button>
 </form>
 
-<form class="form-control w-25" (ngSubmit)="assignRole()">
+
+<form class="form-control w-50" (ngSubmit)="createRole()">
   <input class="form-control" type="text" placeholder="Username" [(ngModel)]="role.name" name="rolename" required>
   <br>
-  <input class="form-control"  type="password" placeholder="Password" [(ngModel)]="role.description" name="description" required>
+  <input class="form-control"  type="text" placeholder="description" [(ngModel)]="role.description" name="description" required>
   <br>
-  <button class="btn btn-info" type="submit">Assign Role</button>
+  <button class="btn btn-info" type="submit">Create Role</button>
 </form>
+</div>
+
+<div class="">
+</div>
+
 
 <!-- View Users  -->
-<div class="card">
+<div class="card mt-5">
     <p-tabs value="0" scrollable>
         <p-tablist>
             <ng-template #previcon>

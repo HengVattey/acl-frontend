@@ -10,18 +10,18 @@ export const routes: Routes = [
   redirectTo: 'login',
   pathMatch: 'full'
 },
- {
+{
     path: 'login',
     component: LoginComponent},
-  {
+{
     path: 'fee',
     component:FeeComponent  ,
     canActivate: [authGuard]
-  },
-  {
+},
+{
     path: 'rbac',
     component:RBACComponent,
     canActivate: [authGuard]
-  }
+}
 
 ];

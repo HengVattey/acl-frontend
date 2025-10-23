@@ -15,11 +15,21 @@ import { AvatarModule } from 'primeng/avatar';
 export class RBACComponent {
 
 
-  user = {
+roles:any[]=[];
+
+  // user = {
+  //   username: '',
+  //   password: '',
+  //   email: '',
+  //   roleId:null as number | null
+  // };
+
+    user = {
     username: '',
     password: '',
     email: ''
   };
+
 
   role = {
     name: '',
@@ -27,24 +37,42 @@ export class RBACComponent {
   };
 
 
+
+  assignRoleToUser={
+    userId: 28,
+    roleId:2
+  }
   constructor(private rbacService: RbacService) {
   console.log("RBAC Component Loaded");
   
   this.rbacService.getRoles().subscribe(data=>{
-  console.log(" Theses are roles : ", data);
+    this.roles = data;
+    console.log(" These are roles : ", this.roles[0]);
   });
   this.rbacService.getUsers().subscribe(data=>{
   console.log(" Theses are users : ", data);
   });
 
-  
-
-
-
 }
 
-assignRole(){
-this.rbacService.assignRole(this.role).subscribe({
+
+assignRoleToUserSubmit(){
+  this.rbacService.assignRoleToUser(this.assignRoleToUser).subscribe({
+    next: (res) => {
+        console.log(' Success:', res);
+        alert('Role assigned successfully!');
+      },
+      error: (err) => {
+        console.error(' Error:', err);  
+        if (err.status === 403) alert('Access denied');
+        else if (err.status === 401) alert('Unauthorized');
+        else alert('Something went wrong');
+      }
+    });
+  }
+
+createRole(){
+this.rbacService.CreateRole(this.role).subscribe({
 next: (res) => {
         console.log(' Success:', res);
         alert('successfully!');

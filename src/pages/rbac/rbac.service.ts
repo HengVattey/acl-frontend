@@ -26,8 +26,15 @@ export class RbacService  {
     return this.http.post(this.viewUserUrl, userData);
   }
   
-  assignRole(roleData: any):Observable<any>{
+  CreateRole(roleData: any):Observable<any>{
   return this.http.post(this.roleUrl,roleData);
+  }
+
+
+  // Assign Role to User
+  assignRoleToUser(assignData:any):Observable<any>{
+    const assignRoleUrl = `${this.viewUserUrl}/assign-role`;
+    return this.http.post(assignRoleUrl,assignData);
   }
 
 
