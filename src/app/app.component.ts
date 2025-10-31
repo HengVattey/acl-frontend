@@ -2,6 +2,9 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { RouterLinkActive, RouterOutlet, RouterLink } from '@angular/router';
 import { CommonModule, NgClass } from '@angular/common';
 import { UserActivityService } from '../pages/authentication/user-activity.service';
+import { AuthService } from '../pages/authentication/auth.service';
+import { RoleType } from '../pages/rbac/domain/role.model';
+
 
 @Component({
   selector: 'app-root',
@@ -11,8 +14,15 @@ import { UserActivityService } from '../pages/authentication/user-activity.servi
 })
 
 export class AppComponent implements OnInit {
-  constructor(private auto: UserActivityService) {}
 
+  constructor(private auto: UserActivityService, private authService: AuthService) {}
+
+isSuperAdmin(): boolean {
+  return this.authService.hasRole([RoleType.SUPER_ADMIN]);
+}
+isManager(): boolean {
+  return this.authService.hasRole([RoleType.MANAGER, RoleType.SUPER_ADMIN]);
+}
   ngOnInit(): void {
    // this.auto.initListener();
   }
@@ -54,4 +64,15 @@ export class AppComponent implements OnInit {
     document.body.style.cursor = 'default';
     localStorage.setItem('sidebarWidth', String(this.sidebarWidth));
   }
+
+  // isSuperAdmin(): boolean {
+  //   let isAdmin = false;
+  //   // this.authService.getIndentity().subscribe(user => {
+  //   //   isAdmin = user.roles.includes('SUPER_ADMIN');
+  //   //   console.log('Is Super Admin:', isAdmin);
+  //   // });
+  //   return isAdmin;
+  // }
+
+   
 }

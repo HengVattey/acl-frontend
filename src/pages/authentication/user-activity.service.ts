@@ -14,11 +14,12 @@ export class UserActivityService {
     private authService: AuthService,
     private ngZone: NgZone 
   ) 
-  {}
+  {
+    
+  }
 
   initListener(): void {
-
-    this.ngZone.runOutsideAngular(() => {
+    this.ngZone.runOutsideAngular(() => { 
       this.resetTimer();
       window.addEventListener('mousemove', () => this.resetTimer());
       window.addEventListener('click', () => this.resetTimer());

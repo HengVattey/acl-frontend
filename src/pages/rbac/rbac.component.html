@@ -1,14 +1,6 @@
 
 
 
-
-
-<!-- <div class="card">
-    <p-editor [(ngModel)]="text" [style]="{ height: '320px' }" />
-</div> -->
-
-
-
 <div class="container d-flex justify-content-center gap-4">
 <form class="form-control w-50" (ngSubmit)="onSubmit()">
   <input class="form-control" type="text" placeholder="Username" [(ngModel)]="user.username" name="username" required>
@@ -18,24 +10,16 @@
   <input class="form-control" type="email" placeholder="Email" [(ngModel)]="user.email" name="email" required>
   <br>
   <br>
-
-
-  <!-- <div class="card flex justify-center">
-    <p-select [options]="groupedCities" [(ngModel)]="selectedCity" placeholder="Select a City" [group]="true" class="w-full md:w-56">
-            <ng-template let-group #group>
-                <div class="flex items-center">
-                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value"  style="width: 20px" />
-                    <span>{{ group.label }}</span>
-                </div>
-            </ng-template>
-    </p-select>
-</div> -->
-
-
-
   <button class="btn btn-info" type="submit">Create User</button>
 </form>
 
+<form class="form-control w-50" (ngSubmit)="assignRoleToUserSubmit()">
+  <input class="form-control" type="number" placeholder="User ID" [(ngModel)]="assignRoleToUser.userId" name="userId" required>
+  <br>
+  <input class="form-control"  type="number" placeholder="Role ID" [(ngModel)]="assignRoleToUser.roleId" name="roleId" required>
+  <br>
+  <button class="btn btn-info" type="submit">Assign Role</button>
+</form>
 
 <form class="form-control w-50" (ngSubmit)="createRole()">
   <input class="form-control" type="text" placeholder="Username" [(ngModel)]="role.name" name="rolename" required>
@@ -44,14 +28,39 @@
   <br>
   <button class="btn btn-info" type="submit">Create Role</button>
 </form>
+
+<form class="form-control w-50" (ngSubmit)="createPermisson()">
+  <input class="form-control" type="text" placeholder="name" [(ngModel)]="permission.name" name="permissionName" required>
+  <br>
+  <input class="form-control"  type="text" placeholder="description" [(ngModel)]="permission.description" name="permissionDescription" required>
+  <br>
+  <button class="btn btn-info" type="submit">create Permission</button>
+</form>
+
+<form class="form-control w-50" (ngSubmit)="graintRolePermission()">
+  <input class="form-control" type="text" placeholder="roleId" [(ngModel)]="grantPermission.roleId" name="roleId" required>
+  <br>
+  <input class="form-control"  type="text" placeholder="permissionId" [(ngModel)]="grantPermission.permissionId" name="permissionId" required>
+  <br>
+  <button class="btn btn-info" type="submit">Grant Permission</button>
+</form>
+
+    
 </div>
 
-<div class="">
-</div>
+
+
+
+
+
+
+
+
+
 
 
 <!-- View Users  -->
-<div class="card mt-5">
+ <div class="card mt-5 " >
     <p-tabs value="0" scrollable>
         <p-tablist>
             <ng-template #previcon>
@@ -63,7 +72,7 @@
             </p-tab>
             <p-tab value="1" class="flex items-center !gap-2">
                 <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" shape="circle" />
-                <span class="font-bold whitespace-nowrap">Onyama Limba</span>
+                <span class="font-bold whitespace-nowrap">Roles</span>
             </p-tab>
             <p-tab value="2" class="flex items-center !gap-2">
                 <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/ionibowcher.png" shape="circle" />
@@ -76,24 +85,77 @@
         </p-tablist>
         <p-tabpanels>
             <p-tabpanel value="0">
-                <p class="m-0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-                    ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                    nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-                    anim id est laborum.
-                </p>
+               <div class="card ">
+    <table class="table table-striped " style="min-width:60rem">
+        <thead>
+            <tr>
+                <th style="width:20%">E-ID</th>
+                <th style="width:20%">USERNAME</th>
+                <th style="width:20%">PASSWORD</th>
+                <th style="width:20%">EMAIL</th>
+                <th style="width:20%">ROLES</th>
+                 <th style="width:20%">INFO</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+                <td>{{user.id}}</td>
+                <td>{{user.username}}</td>
+                <td> {{user.password}} </td>
+                <td>{{user.email}}</td>
+                <td>
+                    <ul>
+                        <li *ngFor="let role of user.roles">{{role.name}}</li>
+                    </ul>
+                </td>
+                <td>
+                    <div class="card flex justify-center">
+    <p-button (click)="showDialog()" label="Show" />
+    <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+        <span class="p-text-secondary block mb-8">Update your information.</span>
+        <ul>
+            <span>You are </span>
+                        <p *ngFor="let role of user.roles">{{role.name}}</p>
+                    </ul>
+        <div class="flex justify-end gap-2">
+            <p-button label="Cancel" severity="secondary" (click)="visible = false" />
+            <p-button label="Save" (click)="visible = false" />
+        </div>
+    </p-dialog> 
+</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 
             </p-tabpanel>
             <p-tabpanel value="1">
-                <p class="m-0">
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
-                    aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-                    Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
-                    dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius
-                    modi.
-                </p>
+                 <div class="card ">
+    <table class="table table-striped " style="min-width:60rem">
+        <thead>
+            <tr>
+                <th style="width:20%">R-ID</th>
+                <th style="width:20%">ROLE NAME</th>
+                <th style="width:20%">DESCRIPTION</th>
+                <th style="width:20%">PERMISSION</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let role of roles">
+                <td>{{role.id}}</td>
+                <td>{{role.name}}</td>
+                <td>{{role.description}}</td>
+                <td>
+                    <ul>
+                        <li *ngFor="let permission of role.permissions">{{permission.name}}</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
             </p-tabpanel>
             <p-tabpanel value="2">
                 <p class="m-0">
@@ -106,5 +168,5 @@
             </p-tabpanel>
         </p-tabpanels>
     </p-tabs>
-</div>
+</div> 
 
