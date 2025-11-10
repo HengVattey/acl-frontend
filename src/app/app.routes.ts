@@ -19,14 +19,14 @@ export const routes: Routes = [
     component: LoginComponent},
 {
     path: 'fee',
-    component:FeeComponent  ,
+    component:FeeComponent,
     canActivate: [authGuard]
 },
 {
   path: 'rbac',
   component: RBACComponent,
-  canActivate: [authGuard], // ensure only superadmin
-  data: { roles: ['SUPER_ADMIN'] }
+  canActivate: [authGuard,  RoleGuard],
+  data: { roles: [RoleType.SUPER_ADMIN] }
 },
  {
     path: 'admin-panel',
@@ -37,7 +37,7 @@ export const routes: Routes = [
   {
     path: 'management-dashboard',
     component: ManagementDashboardComponent,
-    canActivate: [authGuard,RoleGuard],
+    canActivate: [authGuard,  RoleGuard],
     data: { roles: [RoleType.SUPER_ADMIN, RoleType.MANAGER] }
   }
 ];

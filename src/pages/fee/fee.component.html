@@ -15,12 +15,43 @@
 </ol>
 
 </div>
-<div class="container">
+<div class="container-fluid bg-light rounded w-75 mt-3 p-3">
 
 
-<button class="btn btn-info" (click)="createFee()">  Create Fee</button>
+<!-- <button class="btn btn-info" (click)="createFee()">  Create Fee</button> -->
 
-  
+
+<div class="container p-4">
+  <h3 class="mb-3">Fee Selection</h3>
+
+  <input
+    type="text"
+    class="form-control mb-3"
+    placeholder="Enter Fee Name"
+    [(ngModel)]="feeName"
+  />
+<p-select
+  [options]="feeList"
+  [(ngModel)]="selectedFee"
+  optionLabel="feeName"       
+  placeholder="Select Fee Type"
+  (onChange)="onSelectFee($event)"
+  class="w-full md:w-100"
+></p-select>
+
+
+  <button class="btn btn-primary" (click)="createFee()">Confirm Selection</button>
+
+  <!-- <div *ngIf="selectedFee" class="mt-3 alert alert-info">
+    <strong>Selected Fee:</strong> {{ selectedFee.name }} ({{ selectedFee.amount | currency:'USD' }})
+  </div> -->
+</div>
+
+
+
+
+
+
 </div>
 
 

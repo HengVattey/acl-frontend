@@ -17,10 +17,7 @@ export class LoginComponent {
   errorMessage: string | null = null;
   isLoading = false;
 
-
-  constructor(private authService: AuthService, private router: Router) {
-
-  }
+  constructor(private authService: AuthService, private router: Router) {}
   onSubmit(): void {
     this.isLoading = true;
     this.errorMessage = null; 
@@ -30,7 +27,6 @@ export class LoginComponent {
         if (success) {
           this.router.navigate(['/fee']);
         
-
         } else
         {
           this.errorMessage = 'Invalid username or password. Please try again.';

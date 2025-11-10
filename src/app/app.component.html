@@ -1,12 +1,8 @@
-
-
-<div class="layout" [class.resizing]="resizing">
+<!-- When the user is logged in -->
+<div *ngIf="authService.isLoggedIn()"  class="layout" [class.resizing]="resizing">
   <aside class="sidebar" [style.width.px]="sidebarWidth" [class.collapsed]="collapsed">
     <div class="brand">
       <button class="toggle-btn" (click)="toggleSidebar()">
-  
-        <!-- <i class="pi" [ngClass]="collapsed ? 'pi-angle-right' : 'pi-angle-left'"></i> -->
-         
         <i class="pi" [ngClass]="collapsed ? 'pi-bars' : 'pi-bars'"></i>
       </button>
       <span *ngIf="!collapsed">Your Logo</span>
@@ -17,29 +13,16 @@
         <i class="pi pi-home"></i>
         <span *ngIf="!collapsed">Fee Creation </span>
       </a>
-      <a routerLink="/reports">
-        <i class="pi pi-chart-line"></i>
-        <span *ngIf="!collapsed">Reports</span>
-      </a>
-      <a routerLink="/settings">
-        <i class="pi pi-cog"></i>
-        <span *ngIf="!collapsed">Settings</span>
-      </a>
 
-        <a routerLink="login" routerLinkActive="active">
-        <i class="pi pi-cog"></i>
-        <span *ngIf="!collapsed">login</span>
-      </a>
-
-      <a routerLink="rbac" routerLinkActive="active">
+      <a *ngIf="isSuperAdmin()" routerLink="rbac" routerLinkActive="active">
         <i class="pi pi-cog"></i>
         <span *ngIf="!collapsed">RBAC</span>
       </a>
-           <a  routerLink="admin-panel" routerLinkActive="active"   *ngIf="isSuperAdmin()" >
+           <a  routerLink="admin-panel" routerLinkActive="active"  *ngIf="isSuperAdmin()" >
         <i class="pi pi-cog"></i>
         <span *ngIf="!collapsed">admin-panel</span>
       </a>
-           <a routerLink="management-dashboard" routerLinkActive="active" *ngIf="isManager()">
+        <a routerLink="management-dashboard" routerLinkActive="active" *ngIf="isManager()">
         <i class="pi pi-cog"></i>
         <span *ngIf="!collapsed">management-dashboard</span>
       </a>
@@ -50,12 +33,50 @@
       </a>
 
     </nav>
+    <footer class="fixed-bottom">  <button class="btn btn-info">
+       <a (click)="logout()">
+  <i class="pi pi-sign-out"></i>
+  <span *ngIf="!collapsed">Logout</span>
+</a>
+  </button></footer>
 
     <div class="resize-handle" (mousedown)="startResize($event)"></div>
   </aside>
 
-  <main class="content">
+  <main   class="content">
     <router-outlet></router-outlet>
   </main>
+
+
+
 </div>
+
+<!-- When the user is not logged in -->
+
+<div   *ngIf="!authService.isLoggedIn()" 
+class="container-fluid w-50 vh-100 d-flex justify-content-center align-items-center" >
+<div class="lines">
+  <div class="line"></div>
+  <div class="line"></div>
+  <div class="line"></div>
+  <div class="line"></div>
+  <div class="line"></div>
+  <div class="line"></div>
+  <div class="line"></div>
+  <div class="line"></div>
+  <div class="line"></div>
+  <div class="line"></div>
+</div>
+     <div class="container   content shadow-lg p-4 rounded " [ngStyle]="{'background-color': color}"> 
+    
+    <router-outlet></router-outlet>
+    
+
+
+
+  </div>
+</div>
+
+
+
 

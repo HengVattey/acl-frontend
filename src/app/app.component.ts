@@ -4,28 +4,33 @@ import { CommonModule, NgClass } from '@angular/common';
 import { UserActivityService } from '../pages/authentication/user-activity.service';
 import { AuthService } from '../pages/authentication/auth.service';
 import { RoleType } from '../pages/rbac/domain/role.model';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NgClass, CommonModule, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, NgClass, CommonModule, RouterLink, RouterLinkActive,FormsModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 
 export class AppComponent implements OnInit {
 
-  constructor(private auto: UserActivityService, private authService: AuthService) {}
-
+constructor(private auto: UserActivityService, public authService: AuthService) {}
+color: string = '#b6b9d6ff';
+logout() {
+  this.authService.logout();
+}
 isSuperAdmin(): boolean {
   return this.authService.hasRole([RoleType.SUPER_ADMIN]);
 }
+
 isManager(): boolean {
   return this.authService.hasRole([RoleType.MANAGER, RoleType.SUPER_ADMIN]);
 }
   ngOnInit(): void {
    // this.auto.initListener();
-  }
+}
 
   sidebarWidth = Number(localStorage.getItem('sidebarWidth') ?? 260);
   resizing = false;
@@ -65,14 +70,5 @@ isManager(): boolean {
     localStorage.setItem('sidebarWidth', String(this.sidebarWidth));
   }
 
-  // isSuperAdmin(): boolean {
-  //   let isAdmin = false;
-  //   // this.authService.getIndentity().subscribe(user => {
-  //   //   isAdmin = user.roles.includes('SUPER_ADMIN');
-  //   //   console.log('Is Super Admin:', isAdmin);
-  //   // });
-  //   return isAdmin;
-  // }
 
-   
 }

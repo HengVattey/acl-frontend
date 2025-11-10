@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of, timer, Subscription } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { environment } from '../enviroment/enviroment';
+import { environment } from '../../enviroment/enviroment';
 import { RoleType, User } from '../rbac/domain/role.model';
 
 @Injectable({

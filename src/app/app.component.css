@@ -1,58 +1,3 @@
-/* 
-:host, html, body { height: 100%; }
-body { margin: 0; }
-
-
-.layout {
-  display: flex;
-  height: 100%;
-}
-
-.sidebar {
-  position: relative;         
-  border-right: 1px solid #e5e7eb;
-  background: #f8fafc;
-  padding: 12px 12px 12px 16px;
-  box-sizing: border-box;
-}
-
-.brand {
-  font-weight: 600;
-  margin-bottom: 12px;
-}
-
-.menu {
-  display: grid;
-  gap: 8px;
-}
-.menu a {
-  text-decoration: none;
-  color: #111827;
-}
-.menu a:hover { text-decoration: underline; }
-
-
-.content {
-  flex: 1;
-  padding: 16px;
-  overflow: auto;
-}
-
-
-.resize-handle {
-  position: absolute;
-  top: 0;
-  right: -4px;         
-  width: 8px;
-  height: 100%;
-  cursor: col-resize;
-  user-select: none;
-}
-
-
-.resizing * {
-  user-select: none !important;
-} */
 
 .acive{
 color: red !important;
@@ -69,7 +14,7 @@ body { margin: 0; }
 
 .sidebar {
   position: relative;
-  background: #f9fafb;
+    background-color: #d5d6df !important;
   border-right: 1px solid #e5e7eb;
   transition: width 0.25s ease;
   overflow: hidden;
