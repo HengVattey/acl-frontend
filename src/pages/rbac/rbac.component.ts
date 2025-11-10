@@ -7,15 +7,18 @@ import { BadgeModule } from 'primeng/badge';
 import { AvatarModule } from 'primeng/avatar';
 import { Product } from './domain/product';
 import { ProductService } from './product-service.service';
-import { Role, User } from './domain/user';
+import {  User } from './domain/user';
 import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { Fee } from '../fee/fee.model';
+import { SelectModule } from 'primeng/select';
+import { Role } from './rbac.model';
 
 
 @Component({
   selector: 'app-rbac',
-  imports: [CommonModule,FormsModule, TabsModule, BadgeModule, AvatarModule,Dialog, ButtonModule, InputTextModule],
+  imports: [CommonModule,FormsModule, TabsModule, BadgeModule, AvatarModule,Dialog, ButtonModule, InputTextModule,SelectModule],
   templateUrl: './rbac.component.html',
   styleUrl: './rbac.component.css'
 })
@@ -24,9 +27,14 @@ export class RBACComponent implements OnInit {
 products: Product[] = [];
   roles: Role[] = [];
   users: User[] = [];
+  feeList: Fee[] = [];
+  selectedFee: Fee | null = null; // ✅ selected fee
 
   visible: boolean = false;
 
+   onSelectFee(event: any): void {
+    console.log('Selected fee:', this.selectedFee);
+  }
   showDialog() {
         this.visible = true;
   }
@@ -64,7 +72,7 @@ products: Product[] = [];
   ngOnInit(): void {
   this.productService.getProductsMini().then((data) => {
             this.products = data;});
-  this.getAllUsers();
+  //this.getAllUsers();
   this.getAllRoles();
 
 
@@ -80,9 +88,8 @@ getAllUsers() {
 }
 
 getAllRoles() {
-  this.rbacService.getRoles().subscribe(data => {
-    this.roles = data;
-    console.log(" These are all roles : ", this.roles);
+  this.rbacService.getAllRoles().subscribe((roles:Role) => {
+    console.log(" These are all roles : ", roles.permissions);
   });
 }
 

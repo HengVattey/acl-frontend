@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { environment } from '../../enviroment/enviroment';
 import { Observable } from 'rxjs';
+import { Role } from './rbac.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,8 @@ export class RbacService  {
     return this.http.get<any>(this.viewUserUrl);
   }
 
-  getRoles(){
-    return this.http.get<any>(environment.ROLE_URL);
+  getAllRoles(){
+    return this.http.get<Role>(environment.ROLE_URL);
   }
 
   createUser(userData: any): Observable<any> {

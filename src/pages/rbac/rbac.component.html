@@ -1,12 +1,23 @@
 <div class="container d-flex justify-content-center gap-4">
 <form class="form-control w-50" (ngSubmit)="onSubmit()">
-  <input class="form-control" type="text" placeholder="Username" [(ngModel)]="user.username" name="username" required>
+   <input class="form-control" type="text" placeholder="Username" [(ngModel)]="user.username" name="username" required>
   <br>
   <input class="form-control" type="password" placeholder="Password" [(ngModel)]="user.password" name="password" required>
   <br>
   <input class="form-control" type="email" placeholder="Email" [(ngModel)]="user.email" name="email" required>
   <br>
   <br>
+
+  <p-select
+  [options]="feeList"
+  [(ngModel)]="selectedFee"
+  optionLabel="feeName"       
+  placeholder="Select Fee Type"
+  (onChange)="onSelectFee($event)"
+  class="w-full md:w-100"
+></p-select>
+
+
   <button class="btn btn-info" type="submit">Create User</button>
 </form>
 
