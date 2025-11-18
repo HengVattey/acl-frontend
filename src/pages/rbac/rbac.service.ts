@@ -3,6 +3,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { environment } from '../../enviroment/enviroment';
 import { Observable } from 'rxjs';
 import { Role } from './rbac.model';
+import { User } from './domain/user';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class RbacService  {
   }
 
   getUsers(){
-    return this.http.get<Role[]>(this.viewUserUrl);
+    return this.http.get<User[]>(this.viewUserUrl);
   }
 
   getAllRoles(){

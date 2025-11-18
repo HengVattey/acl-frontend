@@ -1,24 +1,114 @@
 <div class="container d-flex justify-content-center gap-4">
-<form class="form-control w-50" (ngSubmit)="onSubmit()">
-   <input class="form-control" type="text" placeholder="Username" [(ngModel)]="user.username" name="username" required>
-  <br>
-  <input class="form-control" type="password" placeholder="Password" [(ngModel)]="user.password" name="password" required>
-  <br>
-  <input class="form-control" type="email" placeholder="Email" [(ngModel)]="user.email" name="email" required>
-  <br>
-  <br>
+  <form class="form-control w-50" (ngSubmit)="onSubmit()">
+    <input
+      class="form-control"
+      type="text"
+      placeholder="Username"
+      [(ngModel)]="user.username"
+      name="username"
+      required
+    />
+    <br />
+    
+    <input
+      class="form-control"
+      type="password"
+      placeholder="Password"
+      [(ngModel)]="user.password"
+      name="password"
+      required
+    />
+     <br />
+    
+    <input
+      class="form-control"
+      type="email"
+      placeholder="Email"
+      [(ngModel)]="user.email"
+      name="email"
+      required
+    />
+<br>
 
-  <p-select
-  [options]="roleList"
-  [(ngModel)]="selectedRole"
-  optionLabel="roleName"       
-  placeholder="Select Role Type" 
-  (onChange)="onSelectRole($event)"
-  class="w-full md:w-100"
-  ></p-select>
+<input 
+type="radio" 
+id="html" 
+name="fav_language"
+value="HTML"
+[checked]="user.enabled"
+ >
+  <label for="">Active</label>
+ <br />
+ <br>
 
-  <button class="btn btn-info" type="submit">Create User</button>
-</form>
+
+      <input
+      class="form-control"
+      type="text"
+      placeholder="Phone Number"
+      [(ngModel)]="user.phoneNumber"
+      name="phoneNumber"
+      required
+    />
+     <br />
+    <p-select
+      [options]="roleList"
+      [(ngModel)]="selectedRole"
+      optionLabel="roleName"
+      placeholder="Select Role Type"
+      name="roleType"
+      (onChange)="onSelectRole($event)"
+      class="w-full md:w-100"
+    ></p-select>
+<br>
+<br>
+    <button class="btn btn-info" type="submit">Create User</button>
+  </form>
+</div>
+
+<br>
+<table class="table">
+  <thead class="table-info">
+    <tr>
+      <th scope="col">R-ID</th>
+      <th scope="col">USERNAME</th>
+      <th scope="col">PASSWORD</th>
+        <th scope="col">EMAIL</th>
+      <th scope="col">ROLE</th>
+      <th scope="col">ACTIVE</th>
+      <th scope="col">ACTION</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.password }}</td>
+        <td>{{ user.email }}</td> 
+        <td>
+        <div *ngFor="let role of user.roles">
+          {{ role.name }}
+        </div>
+      </td>
+        <td>{{ user.enabled }}</td>
+        <td> <div >
+    <p-button (click)="showDialog()" label="Update" />
+    <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+        
+<label for="">Username :  </label>
+<input type="text" placeholder="{{user.username}}"/>
+
+    </p-dialog>
+</div> </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+
+
 <!-- 
 <form class="form-control w-50" (ngSubmit)="assignRoleToUserSubmit()">
   <input class="form-control" type="number" placeholder="User ID" [(ngModel)]="assignRoleToUser.userId" name="userId" required>

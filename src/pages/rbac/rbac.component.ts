@@ -12,11 +12,12 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { Role } from './rbac.model';
+import { Dialog } from 'primeng/dialog';
 
 
 @Component({
   selector: 'app-rbac',
-  imports: [CommonModule,FormsModule, TabsModule, BadgeModule, AvatarModule, ButtonModule, InputTextModule,SelectModule],
+  imports: [CommonModule,FormsModule, TabsModule, BadgeModule, AvatarModule, ButtonModule, InputTextModule,SelectModule,Dialog],
   templateUrl: './rbac.component.html',
   styleUrl: './rbac.component.css'
 })
@@ -31,7 +32,8 @@ products: Product[] = [];
   visible: boolean = false;
 
    onSelectRole(event: any): void {
-    console.log('Selected Role:', this.selectedRole);
+    console.log('Selected Role:', this.selectedRole?.roleId);
+    this.user.roleId = this.selectedRole?.roleId || null;
   }
   showDialog() {
         this.visible = true;
@@ -40,7 +42,10 @@ products: Product[] = [];
   user = {
     username: '',
     password: '',
-    email: ''
+    email: '',
+    enabled: true,
+    phoneNumber: '',
+    roleId: null as number | null
   };
 
   role = {
@@ -72,18 +77,19 @@ products: Product[] = [];
             this.products = data;});
   //this.getAllUsers();
   this.getAllRoles();
+  this.getAllUsers();
 
 
   }
 
 //Get all users 
 
-// getAllUsers() {
-//   this.rbacService.getUsers().subscribe(data => {
-//     this.users = data;
-//     console.log(" These are all users : ", this.users);
-//   });
-// }
+getAllUsers() {
+  this.rbacService.getUsers().subscribe(data => {
+    this.users = data;
+    console.log(" These are all users : ", this.users);
+  });
+}
 
 getAllRoles() {
     this.rbacService.getAllRoles().subscribe({
@@ -146,10 +152,22 @@ next: (res) => {
 }
 
 onSubmit() {
+  console.log('Creating user with data:', this.user);
     this.rbacService.createUser(this.user).subscribe({
       next: (res) => {
+
         console.log(' Success:', res);
         alert('User created successfully!');
+        this.user = {
+          username: '',
+          password: '',
+          email: '',
+          enabled: false,
+          phoneNumber: '',
+          roleId: null
+        };
+
+
       },
       error: (err) => {
         console.error(' Error:', err);

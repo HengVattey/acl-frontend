@@ -1,6 +1,6 @@
 
 export interface Role{
-roldId:number;
+roleId:number;
 roleName:string;
 // roleDescription:string;
 // permissions:Permission[];
