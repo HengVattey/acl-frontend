@@ -10,18 +10,22 @@ import { Role } from './rbac.model';
 
 export class RbacService  {
   viewUserUrl: string = environment.USER_URL;
-  roleUrl:string = environment.ROLE_URL;
+  // roleUrl:string = environment.ROLE_URL;
+  roleUrl:string = " http://localhost:8080/roles/allRoles";
+
+
+ 
   permissonUrl:string = environment.PERMISSIONS_URL;
 
   constructor(private http: HttpClient) {
   }
 
   getUsers(){
-    return this.http.get<any>(this.viewUserUrl);
+    return this.http.get<Role[]>(this.viewUserUrl);
   }
 
   getAllRoles(){
-    return this.http.get<Role>(environment.ROLE_URL);
+    return this.http.get<Role[]>(this.roleUrl);
   }
 
   createUser(userData: any): Observable<any> {

@@ -2,8 +2,9 @@
 export interface Role{
 roldId:number;
 roleName:string;
-roleDescription:string;
-permissions:Permission[];
+// roleDescription:string;
+// permissions:Permission[];
+
 }
 
 export interface Permission{

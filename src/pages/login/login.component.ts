@@ -25,7 +25,7 @@ export class LoginComponent {
       next: (success) => {
         this.isLoading = false;
         if (success) {
-          this.router.navigate(['/fee']);
+          this.router.navigate(['/rbac']);
         
         } else
         {

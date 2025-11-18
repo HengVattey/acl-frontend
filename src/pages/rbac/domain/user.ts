@@ -2,6 +2,7 @@ export interface User {
     id?: number;
     username?: string;
     password?: string;
+    phoneNumber?: string;
     email?: string;
     roles?: Role[];
 }

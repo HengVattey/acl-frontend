@@ -16,7 +16,9 @@ import { FormsModule } from '@angular/forms';
 
 export class AppComponent implements OnInit {
 
-constructor(private auto: UserActivityService, public authService: AuthService) {}
+constructor(private auto: UserActivityService, public authService: AuthService) {
+  
+}
 color: string = '#b6b9d6ff';
 logout() {
   this.authService.logout();

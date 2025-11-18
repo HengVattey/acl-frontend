@@ -8,17 +8,15 @@ import { AvatarModule } from 'primeng/avatar';
 import { Product } from './domain/product';
 import { ProductService } from './product-service.service';
 import {  User } from './domain/user';
-import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { Fee } from '../fee/fee.model';
 import { SelectModule } from 'primeng/select';
 import { Role } from './rbac.model';
 
 
 @Component({
   selector: 'app-rbac',
-  imports: [CommonModule,FormsModule, TabsModule, BadgeModule, AvatarModule,Dialog, ButtonModule, InputTextModule,SelectModule],
+  imports: [CommonModule,FormsModule, TabsModule, BadgeModule, AvatarModule, ButtonModule, InputTextModule,SelectModule],
   templateUrl: './rbac.component.html',
   styleUrl: './rbac.component.css'
 })
@@ -27,13 +25,13 @@ export class RBACComponent implements OnInit {
 products: Product[] = [];
   roles: Role[] = [];
   users: User[] = [];
-  feeList: Fee[] = [];
-  selectedFee: Fee | null = null; // ✅ selected fee
+  roleList: Role[] = [];
+  selectedRole: Role | null = null; 
 
   visible: boolean = false;
 
-   onSelectFee(event: any): void {
-    console.log('Selected fee:', this.selectedFee);
+   onSelectRole(event: any): void {
+    console.log('Selected Role:', this.selectedRole);
   }
   showDialog() {
         this.visible = true;
@@ -80,17 +78,21 @@ products: Product[] = [];
 
 //Get all users 
 
-getAllUsers() {
-  this.rbacService.getUsers().subscribe(data => {
-    this.users = data;
-    console.log(" These are all users : ", this.users);
-  });
-}
+// getAllUsers() {
+//   this.rbacService.getUsers().subscribe(data => {
+//     this.users = data;
+//     console.log(" These are all users : ", this.users);
+//   });
+// }
 
 getAllRoles() {
-  this.rbacService.getAllRoles().subscribe((roles:Role) => {
-    console.log(" These are all roles : ", roles.permissions);
-  });
+    this.rbacService.getAllRoles().subscribe({
+      next: (roles: Role[]) => {
+        this.roleList = roles;
+        console.log('Fetched Roles:', this.roleList);
+      },
+      error: (err) => console.error('Error fetching roles:', err)
+    });
 }
 
 
