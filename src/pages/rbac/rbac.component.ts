@@ -11,7 +11,7 @@ import {  User } from './domain/user';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
-import { Role } from './rbac.model';
+import { Role, UpdateUser } from './rbac.model';
 import { Dialog } from 'primeng/dialog';
 
 
@@ -26,8 +26,14 @@ export class RBACComponent implements OnInit {
 products: Product[] = [];
   roles: Role[] = [];
   users: User[] = [];
+  selectedUser: any = {};
   roleList: Role[] = [];
   selectedRole: Role | null = null; 
+  newPassword: string = '';
+  newUsername: string = '';
+  newPhoneNumber: string = '';
+  speaking: string = '';
+
 
   visible: boolean = false;
 
@@ -35,7 +41,19 @@ products: Product[] = [];
     console.log('Selected Role:', this.selectedRole?.roleId);
     this.user.roleId = this.selectedRole?.roleId || null;
   }
-  showDialog() {
+  onSubmitUpdatingUser(){
+const updatedData: UpdateUser = {
+  "username":this.selectedUser.username,
+  "password": this.newPassword,
+  "phoneNumber": this.selectedUser.phoneNumber
+};
+this.rbacService.updateUser(this.selectedUser.id!, updatedData).subscribe( (data:any) => {
+  alert(" User updated successfully " + data);
+});
+  }
+
+  showDialog(user:any) {
+    this.selectedUser = { ...user };
         this.visible = true;
   }
 
@@ -183,6 +201,7 @@ createPermisson(){
       next: (res) => {
           console.log(' Create Permission Success:', this.permission);
       },
+      
       error: (err) => {
           console.error(' Error:', err);
           if (err.status === 403) alert('Access denied');

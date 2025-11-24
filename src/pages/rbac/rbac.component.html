@@ -73,7 +73,8 @@ value="HTML"
       <th scope="col">R-ID</th>
       <th scope="col">USERNAME</th>
       <th scope="col">PASSWORD</th>
-        <th scope="col">EMAIL</th>
+
+        <th scope="col">PHONE NUMBER</th>
       <th scope="col">ROLE</th>
       <th scope="col">ACTIVE</th>
       <th scope="col">ACTION</th>
@@ -84,26 +85,102 @@ value="HTML"
         <td>{{ user.id }}</td>
         <td>{{ user.username }}</td>
         <td>{{ user.password }}</td>
-        <td>{{ user.email }}</td> 
+        <td>{{ user.phoneNumber }}</td> 
+
         <td>
         <div *ngFor="let role of user.roles">
           {{ role.name }}
         </div>
       </td>
         <td>{{ user.enabled }}</td>
-        <td> <div >
+        <td> 
+          <p-button (click)="showDialog(user)" label="Update" />
+          <!-- <div >
     <p-button (click)="showDialog()" label="Update" />
-    <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+    <p-dialog header="Edit Profile" [modal]="false" [(visible)]="visible" [style]="{ width: '25rem' }">
         
 <label for="">Username :  </label>
-<input type="text" placeholder="{{user.username}}"/>
+<input type="text" placeholder= {{user.username}}/>
 
     </p-dialog>
-</div> </td>
+</div> -->
+
+ </td>
     </tr>
+    <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+     
+
+   <!-- 
+  Prerequisite: Make sure you have imported 'FormsModule' in the @NgModule 
+  that declares this component.
+-->
+<form (ngSubmit)="onSubmitUpdatingUser()">
+
+  <!-- Username Input -->
+  <div class="mb-3">
+    <label for="username" class="form-label">Username</label>
+    <input 
+      type="text" 
+      class="form-control" 
+      id="username" 
+      name="username" 
+      [(ngModel)]="selectedUser.username"
+      required>
+  </div>
+
+  <!-- New Password Input -->
+  <div class="mb-3">
+    <label for="password" class="form-label">New Password</label>
+    <input 
+      type="password" type="password" for="password"
+      class="form-control" 
+      id="password" 
+      name="newPassword" 
+      [(ngModel)]="newPassword"
+      placeholder="Leave blank to keep current">
+  </div>
+
+  <!-- Phone Number Input -->
+  <div class="mb-3">
+    <label for="phoneNumber" class="form-label">Phone Number</label>
+    <input 
+      type="text" 
+      class="form-control" 
+      id="phoneNumber" 
+      name="phoneNumber" 
+      [(ngModel)]="selectedUser.phoneNumber">
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="d-flex justify-content-end">
+    <button 
+      pButton 
+      pRipple 
+      type="button" 
+      label="Cancel" 
+      class="p-button-text" 
+      (click)="visible = false">
+    </button>
+    
+    <button 
+      pButton 
+      pRipple 
+      type="submit" 
+      label="Save Changes" 
+      class="p-button-info">
+    </button>
+  </div>
+
+</form>
+
+</p-dialog>
   </tbody>
 </table>
 
+
+
+
+<input type="text" [(ngModel)]="speaking" >
 
 
 

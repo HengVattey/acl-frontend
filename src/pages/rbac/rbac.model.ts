@@ -12,3 +12,13 @@ perId:number;
 perName:string;
 perDescription:string;
 }
+
+
+export interface UpdateUser {
+  username?: string;
+  password?: string;
+  phoneNumber?: string;
+
+}
+
+
