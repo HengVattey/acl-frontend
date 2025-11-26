@@ -34,21 +34,29 @@ products: Product[] = [];
   newPhoneNumber: string = '';
   speaking: string = '';
 
-
   visible: boolean = false;
-
    onSelectRole(event: any): void {
     console.log('Selected Role:', this.selectedRole?.roleId);
     this.user.roleId = this.selectedRole?.roleId || null;
   }
+
+
+  showDialogToAddUser() {
+        this.visible = true;
+    }
+    
+       closeDialog() {
+        this.visible = false;
+    }
+
   onSubmitUpdatingUser(){
-const updatedData: UpdateUser = {
+  const updatedData: UpdateUser = {
   "username":this.selectedUser.username,
   "password": this.newPassword,
   "phoneNumber": this.selectedUser.phoneNumber
 };
 this.rbacService.updateUser(this.selectedUser.id!, updatedData).subscribe( (data:any) => {
-  alert(" User updated successfully " + data);
+  alert(" User updated successfully ");
 });
   }
 

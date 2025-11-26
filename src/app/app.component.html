@@ -1,14 +1,14 @@
 <!-- When the user is logged in -->
-<div *ngIf="authService.isLoggedIn()"  class="layout" [class.resizing]="resizing">
+<div  *ngIf="authService.isLoggedIn()"  class="layout" [class.resizing]="resizing">
   <aside class="sidebar" [style.width.px]="sidebarWidth" [class.collapsed]="collapsed">
     <div class="brand">
       <button class="toggle-btn" (click)="toggleSidebar()">
         <i class="pi" [ngClass]="collapsed ? 'pi-bars' : 'pi-bars'"></i>
       </button>
-      <span *ngIf="!collapsed">Your Logo</span>
+      <span *ngIf="!collapsed"> <img class="img-fluid" src="../assets/logo.png" alt="" style="margin-left: 20px;"> </span>
     </div>
 
-    <nav class="menu">
+    <nav class="menu ">
       <a routerLink="fee" routerLinkActive="acive" >
         <i class="pi pi-home"></i>
         <span *ngIf="!collapsed">Fee Creation </span>
@@ -46,8 +46,6 @@
   <main   class="content">
     <router-outlet></router-outlet>
   </main>
-
-
 
 </div>
 

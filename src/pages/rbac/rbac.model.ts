@@ -2,9 +2,6 @@
 export interface Role{
 roleId:number;
 roleName:string;
-// roleDescription:string;
-// permissions:Permission[];
-
 }
 
 export interface Permission{
@@ -13,12 +10,10 @@ perName:string;
 perDescription:string;
 }
 
-
 export interface UpdateUser {
   username?: string;
   password?: string;
   phoneNumber?: string;
-
 }
 
 
